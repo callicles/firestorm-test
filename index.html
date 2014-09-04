@@ -126,13 +126,13 @@
              "args": "<arguments>",
              "description": "<description>",
              "range": {
-             "start" : {
+                 "start" : {
                      "line": <lineNumber>,
                      "column: <columnNumber>
                  },
-             "end" : {
-                     "line": <lineNumber>,
-                     "column: <columnNumber>
+                 "end" : {
+                         "line": <lineNumber>,
+                         "column: <columnNumber>
                  },
              },
              "children" : [<listOfFunctions>]
@@ -144,9 +144,54 @@
          */
         function initDashboard(){
             $.get("testsFunctionsDescriptions.json",function(data){
-               var jsonFile = JSON.parse(data);
 
+               for (var i = 0; i<data.length ; i++){
+                   var table = createScriptPanel(data[i]);
+                   var tableBody = $("<tbody>");
+                   table.append(tableBody);
+                   addFunctionRowsToPanel(tableBody, data[i].functions);
+               }
             });
+        }
+
+        /**
+         * Creates a panel to show the testing functions of a script
+         *
+         * @param script script object from the json file
+         * @returns {void|*|jQuery} the table to which we should append the functions
+         */
+        function createScriptPanel(script){
+            var table = $("<table>").addClass("table table-bordered table-hover table-striped")
+                                    .append($("<thead>").append($("<tr>").append($("<td>").text("Function Name"))
+                                                                         .append($("<td>").text("Arguments"))
+                                                                         .append($("<td>").text("Description"))
+                                                                         .append($("<td>").text("Range"))));
+
+            $("#page-content").append($("<div>").addClass("panel panel-default")
+                      .append($("<div>").addClass("panel-heading").text(script.name))
+                      .append($("<div>").addClass("panel-body").append($("<div>").addClass("table-responsive").append(table))));
+
+            return table;
+        }
+
+        /**
+         * Creates the rows for each script panel
+         *
+         * @param tableBody to which we should append the row
+         * @param functions functions to append to the table
+         */
+        function addFunctionRowsToPanel(tableBody, functions){
+            for (var i = 0 ; i<functions.length ; i++){
+                tableBody.append($("<tr>").append($("<td>").text(functions[i].name))
+                                      .append($("<td>").text(functions[i].args))
+                                      .append($("<td>").text(functions[i].description))
+                                      .append($("<td>").text('line '+functions[i].range.start.line+
+                                          " col "+functions[i].range.start.column+
+                                          " to line "+functions[i].range.end.line+
+                                          " col "+functions[i].range.end.column)));
+                if (functions[i].children)
+                    addFunctionRowsToPanel(tableBody, functions[i].children);
+            }
         }
 
         function displayDashboard(){
@@ -154,7 +199,7 @@
             var pageContent = $("#page-content");
             pageContent.html('');
             $("li .active").removeClass("active");
-            $("dash-link").addClass("active");
+            $("#dash-link").addClass("active");
             initDashboard();
         }
 
@@ -197,6 +242,8 @@
 
                 $("#script-list").append($("<li>").append(a));
             }
+
+            initDashboard();
         });
 
     </script>
