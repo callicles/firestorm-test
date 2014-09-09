@@ -103,6 +103,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
+    <script src="tests/parser-Test.js"></script>
 
     <!-- This script completely defines the testing app behaviour -->
     <script>
@@ -168,7 +169,7 @@
                                                                          .append($("<td>").text("Range"))));
 
             $("#page-content").append($("<div>").addClass("panel panel-default")
-                      .append($("<div>").addClass("panel-heading").text(script.name))
+                      .append($("<div>").addClass("panel-heading").append($("<i class='fa fa-file-text-o fa-fw'>")).append($("<span>").text(' '+script.name)))
                       .append($("<div>").addClass("panel-body").append($("<div>").addClass("table-responsive").append(table))));
 
             return table;
@@ -232,15 +233,17 @@
             var scripts = document.scripts;
 
             for (var i = 0 ; i<scripts.length-1 ; i++){
-                var a = $("<a>");
-                var scriptName = getScriptName(scripts[i].src);
+                if (scripts[i].src.indexOf("/js/") === -1) {
+                    var a = $("<a>");
+                    var scriptName = getScriptName(scripts[i].src);
 
-                a.text(scriptName)
-                 .attr("href",'#')
-                 .attr("id", "a-"+scriptName.substring(0,scriptName.indexOf('.')))
-                 .attr("onclick", "displaySource('"+scripts[i].src+"')");
+                    a.text(scriptName)
+                            .attr("href", '#')
+                            .attr("id", "a-" + scriptName.substring(0, scriptName.indexOf('.')))
+                            .attr("onclick", "displaySource('" + scripts[i].src + "')");
 
-                $("#script-list").append($("<li>").append(a));
+                    $("#script-list").append($("<li>").append(a));
+                }
             }
 
             initDashboard();

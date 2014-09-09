@@ -6,79 +6,124 @@
       {
         "type": "function",
         "name": "simpleFunction",
-        "args": "alpha,beta",
+        "args": "alpha",
         "description": "basic function declaration",
         "range": {
           "start" : {
-            "line": 1,
+            "line": 5,
             "column": 0
            },
           "end" : {
-             "line": 2,
-             "column": 0
+             "line": 7,
+             "column": 1
           }
         },
       "children" : []
       },
       {
         "type": "function",
-        "name": "nestedFunctions0",
-        "args": "",
-        "description": "Nested function declaration",
+        "name": "nestedFunction0",
+        "args": "alpha, beta",
+        "description": "Nested function declaration, root function",
         "range": {
           "start" : {
-            "line": 3,
+            "line": 9,
             "column": 0
           },
           "end" : {
-            "line": 10,
-            "column": 0
+            "line": 14,
+            "column": 1
           }
         },
         "children" : [
           {
             "type": "function",
-            "name": "nestedFunctions1",
-            "args": "alpha,beta",
+            "name": "nestedFunction0_0",
+            "args": "alpha",
             "description": "Nested function declaration",
             "range": {
               "start" : {
-                "line": 4,
-                "column": 0
+                "line": 10,
+                "column": 2
               },
               "end" : {
-                "line": 5,
-                "column": 0
-              }
-            },
-            "children" : []
-          },
-          {
-            "type": "function",
-            "name": "nestedFunctions2",
-            "args": "alpha,beta",
-            "description": "Nested function declaration",
-            "range": {
-              "start" : {
-                "line": 6,
-                "column": 0
-              },
-              "end" : {
-                "line": 7,
-                "column": 0
+                "line": 12,
+                "column": 3
               }
             },
             "children" : []
           }
         ]
+      },
+      {
+        "type": "function",
+        "name": "obj.test0",
+        "args": "a",
+        "description": "Function expression inside an object",
+        "range": {
+          "start" : {
+            "line": 18,
+            "column": 0
+          },
+          "end" : {
+            "line": 20,
+            "column": 2
+          }
+        },
+        "children" : []
+      },
+      {
+        "type": "function",
+        "name": "obj.test1.test10",
+        "args": "test",
+        "description": "Function expression inside an object",
+        "range": {
+          "start" : {
+            "line": 23,
+            "column": 10
+          },
+          "end" : {
+            "line": 32,
+            "column": 3
+          }
+        },
+        "children" : [
+          {
+            "type": "function",
+            "name": "test10_0",
+            "args": "test",
+            "description": "Function declaration nested inside an expression inside an object",
+            "range": {
+              "start" : {
+                "line": 25,
+                "column": 5
+              },
+              "end" : {
+                "line": 27,
+                "column": 6
+              }
+            },
+            "children" : []
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "obj.test11",
+        "args": "test",
+        "description": "Function expression inside an object",
+        "range": {
+          "start": {
+            "line": 33,
+            "column": 2
+          },
+          "end": {
+            "line": 35,
+            "column": 3
+          }
+        },
+        "children": []
       }
-    ]
-  },
-  {
-    "type": "script",
-    "name": "Anomaly-Test.js",
-    "functions": [
-
     ]
   }
 ]
